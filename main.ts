@@ -20,6 +20,9 @@ function initAlien (num: number) {
             `, randint(-10, -20), 0).setPosition(160, randint(10, 110))
     }
 }
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+	
+})
 scene.setBackgroundImage(assets.image`Background`)
 info.setScore(0)
 let playerSprite = sprites.create(assets.image`Planeimg`, SpriteKind.Player)
