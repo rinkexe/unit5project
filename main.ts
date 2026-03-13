@@ -19,15 +19,76 @@ function initAlien (num: number) {
             . . f f c c c c c c c c . . . . 
             `, randint(-10, -20), 0).setPosition(160, randint(10, 110))
     }
+    return 67
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+    timer.throttle("action", 500, function () {
+        projectile = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 4 4 . . . . . . . 
+            . . . . . . 4 5 5 4 . . . . . . 
+            . . . . . . 2 5 5 2 . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, playerSprite, 50, 0)
+        projectile.setKind(SpriteKind.Enemy)
+    })
 })
+controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    timer.throttle("action2", 500, function () {
+        projectile = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 4 4 . . . . . . . 
+            . . . . . . 4 5 5 4 . . . . . . 
+            . . . . . . 2 5 5 2 . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, player2, 50, 0)
+        projectile.setKind(SpriteKind.Enemy)
+    })
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite, effects.ashes, 500)
+    sprites.destroy(sprite, effects.fire, 500)
+    scene.cameraShake(8, 2000)
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    sprites.destroy(sprite)
+    sprites.destroy(otherSprite)
+    info.changeScoreBy(1)
+})
+let projectile: Sprite = null
+let player2: Sprite = null
+let playerSprite: Sprite = null
 scene.setBackgroundImage(assets.image`Background`)
 info.setScore(0)
-let playerSprite = sprites.create(assets.image`Planeimg`, SpriteKind.Player)
+playerSprite = sprites.create(assets.image`Planeimg`, SpriteKind.Player)
 controller.moveSprite(playerSprite, 0, 100)
 playerSprite.setPosition(25, 60)
+playerSprite.setStayInScreen(true)
+player2 = sprites.create(assets.image`Planeimg`, SpriteKind.Player)
+controller.player2.moveSprite(player2, 0, 100)
+player2.setPosition(25, 80)
 playerSprite.setStayInScreen(true)
 game.onUpdateInterval(2000, function () {
     initAlien(randint(1, 3))

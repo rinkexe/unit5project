@@ -7,7 +7,8 @@
         "Color Fading": "github:jwunderl/pxt-color#v0.2.3",
         "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.2.1",
         "sprite-fx": "github:kohanmathers/makecodespritefx#v1.2.0",
-        "arcade-sprite-util": "github:jwunderl/arcade-sprite-util#v0.6.0"
+        "arcade-sprite-util": "github:jwunderl/arcade-sprite-util#v0.6.0",
+        "Timers": "github:microsoft/arcade-timers#v1.1.0"
     },
     "files": [
         "main.blocks",
