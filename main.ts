@@ -25,6 +25,7 @@ info.setScore(0)
 let playerSprite = sprites.create(assets.image`Planeimg`, SpriteKind.Player)
 controller.moveSprite(playerSprite, 0, 100)
 playerSprite.setPosition(25, 60)
+playerSprite.setStayInScreen(true)
 game.onUpdateInterval(2000, function () {
     initAlien(randint(1, 3))
 })
