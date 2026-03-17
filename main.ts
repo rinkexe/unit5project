@@ -72,13 +72,14 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     sprites.destroyAllSpritesOfKind(SpriteKind.Player, effects.fire, 500)
     scene.cameraShake(8, 2000)
     pause(2000)
-    game.showLongText(basic.divide(list), DialogLayout.Top)
+    game.showLongText(basic.divide(list), DialogLayout.Bottom)
+    game.gameOver(true)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
     sprites.destroy(otherSprite)
     info.changeScoreBy(1)
-    list.push(game.runtime() / 1000)
+    list.push(1)
 })
 let projectile: Sprite = null
 let player2: Sprite = null
