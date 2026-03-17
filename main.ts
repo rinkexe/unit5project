@@ -69,17 +69,21 @@ controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.ashes, 500)
-    sprites.destroy(sprite, effects.fire, 500)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Player, effects.fire, 500)
     scene.cameraShake(8, 2000)
+    pause(2000)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
     sprites.destroy(otherSprite)
     info.changeScoreBy(1)
+    list.push(game.runtime() / 1000)
 })
 let projectile: Sprite = null
 let player2: Sprite = null
 let playerSprite: Sprite = null
+let list: number[] = []
+list = []
 scene.setBackgroundImage(assets.image`Background`)
 info.setScore(0)
 playerSprite = sprites.create(assets.image`Planeimg`, SpriteKind.Player)
