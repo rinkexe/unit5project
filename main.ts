@@ -72,6 +72,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     sprites.destroyAllSpritesOfKind(SpriteKind.Player, effects.fire, 500)
     scene.cameraShake(8, 2000)
     pause(2000)
+    game.showLongText(basic.divide(list), DialogLayout.Top)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
