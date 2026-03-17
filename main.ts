@@ -1,3 +1,6 @@
+/**
+ * Spawn aliens
+ */
 function initAlien (num: number) {
     for (let index = 0; index < num; index++) {
         sprites.createProjectileFromSide(img`
@@ -21,6 +24,9 @@ function initAlien (num: number) {
     }
     return 67
 }
+/**
+ * Timers extension for players shooting
+ */
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     timer.throttle("action", 500, function () {
         projectile = sprites.createProjectileFromSprite(img`
@@ -67,6 +73,9 @@ controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         projectile.setKind(SpriteKind.Enemy)
     })
 })
+/**
+ * When playerdies with long text using func from extension playermade
+ */
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.ashes, 500)
     sprites.destroyAllSpritesOfKind(SpriteKind.Player, effects.fire, 500)
@@ -75,12 +84,18 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     game.showLongText(basic.divide(list), DialogLayout.Bottom)
     game.gameOver(true)
 })
+/**
+ * When alien hit
+ */
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
     sprites.destroy(otherSprite)
     info.changeScoreBy(1)
     list.push(1)
 })
+/**
+ * Setup
+ */
 let projectile: Sprite = null
 let player2: Sprite = null
 let playerSprite: Sprite = null
@@ -88,6 +103,7 @@ let list: number[] = []
 list = []
 scene.setBackgroundImage(assets.image`Background`)
 info.setScore(0)
+tiles.setCurrentTilemap(tilemap`level1`)
 playerSprite = sprites.create(assets.image`Planeimg`, SpriteKind.Player)
 controller.moveSprite(playerSprite, 0, 100)
 playerSprite.setPosition(25, 60)
@@ -96,6 +112,9 @@ player2 = sprites.create(assets.image`Planeimg`, SpriteKind.Player)
 controller.player2.moveSprite(player2, 0, 100)
 player2.setPosition(25, 80)
 playerSprite.setStayInScreen(true)
+/**
+ * function with random input number
+ */
 game.onUpdateInterval(2000, function () {
     initAlien(randint(1, 3))
 })
